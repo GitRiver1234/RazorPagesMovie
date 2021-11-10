@@ -10,14 +10,30 @@ namespace RazorPagesMovie.Models
     public class Movie
     {
         public int ID { get; set; }
+
+        [StringLength(60, MinimumLength = 3)]
+        [Required]
         public string Title { get; set; }
 
         [Display(Name = "Release Date")]    // 項目名
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Range(typeof(DateTime), "1/1/19760", "1/1/2020")]
         public DateTime ReleaseDate { get; set; }
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")]
+        [Required]
+        [StringLength(30)]
         public string Genre { get; set; }
 
+        [Range(1, 100)]
+        [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")]
+        [StringLength(5)]
+        [Required]
+        public string Rating { get; set; }
     }
 }
